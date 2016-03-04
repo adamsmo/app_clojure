@@ -17,7 +17,7 @@
 (defn separator
   [stack lines]
   (let [[first & rest] lines
-         nstack (process-braces stack (extract first))]
+        nstack (process-braces stack (extract first))]
     (if (empty? nstack)
       (list first)
       (concat (list first) (separator nstack rest)))))
@@ -33,7 +33,12 @@
 ;(require '[sc2-analyzer.sc2-wrapper :as sc])
 
 (defn strip-special [text]
-  (string/replace text #"\\.*('|\")" "'"))
+  (-> text
+      (string/replace #"\\.*\}.*'" "'")
+      (string/replace #"\\.*'.*\\" "")
+      (string/replace #"\\.*\{.*'" "'")
+      (string/replace #"\\" "")
+      (string/replace #"\"" "'")))
 
 (defn fix-json [text]
   (let [formated (string/replace text #"'|None|False|True" {"'" "\"", "None" "null", "False" "false", "True" "true"})]
@@ -50,10 +55,10 @@
 
 
 (defn to-json [fileLines]
-  (->> fileLines (map strip-special) separate-objects (map string/join) (map fix-json) (map json/read-str)))
+  (->> fileLines (map strip-special) separate-objects (map string/join) (map fix-json) (map json/read-str) first))
 
 
 (defn json-details [fileLines] (flatten (map filter-details (to-json fileLines))))
 
-(defn json-tracker [fileLines] (map filter-tracker (to-json fileLines)))
+(defn json-tracker [fileLines] (to-json fileLines))
 
