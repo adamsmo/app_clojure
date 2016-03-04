@@ -46,7 +46,7 @@
 
 (defn filter-details [json]
   (map-indexed (fn [idx obj] (assoc (select-keys obj ["m_race" "m_name" "m_result"]) "m_playerId" (+ 1 idx)))
-               (get json "m_playerList")))
+               (get (first json) "m_playerList")))
 
 (defn filter-tracker [json]
   ;(select-keys json ["_event" "_gameloop" "m_unitTypeName" "m_controlPlayerId" "m_unitTagIndex" "m_unitTagRecycle"])
@@ -55,7 +55,7 @@
 
 
 (defn to-json [fileLines]
-  (->> fileLines (map strip-special) separate-objects (map string/join) (map fix-json) (map json/read-str) first))
+  (->> fileLines (map strip-special) separate-objects (map string/join) (map fix-json) (map json/read-str)))
 
 
 (defn json-details [fileLines] (flatten (map filter-details (to-json fileLines))))

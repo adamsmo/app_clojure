@@ -88,62 +88,62 @@
    " 'm_title': 'Ulrena'}"])
 
 (def example-json-details
-  {"m_cacheHandles"           ["s2ma"
-                               "s2ma"
-                               "s2max00x00EUft82x12x84Sxefxffxbbx|x80xb7xd3xeexc1xadx81xbdxe5x83xc90xdexa7x9cNPZx04"
-                               "s2maxc5;@"
-                               "s2max00x00EUWxb4xacx0b=xdaxd0Txbaxdfx85xa9LfnWxe4vx9dx08xxcax96rx07x9exc96xb8x0bx98xdc"
-                               "s2max00x00EUx7fAAx1axa5x97xf4xb4d@xd4*V3HxbfSx82-*hx11/x01x04xf9xb8x91xf6xf0Zxe1"
-                               "s2ma"],
-   "m_difficulty"             "",
-   "m_restartAsTransitionMap" false,
-   "m_timeUTC"                130918978219437678,
-   "m_description"            "",
-   "m_mapFileName"            "",
-   "m_imageFilePath"          "",
-   "m_campaignIndex"          0,
-   "m_gameSpeed"              4,
-   "m_modPaths"               nil,
-   "m_timeLocalOffset"        36000000000,
-   "m_isBlizzardMap"          true,
-   "m_title"                  "Ulrena",
-   "m_miniSave"               false,
-   "m_playerList"             [{"m_color"            {"m_a" 255,
-                                                      "m_b" 30,
-                                                      "m_g" 20,
-                                                      "m_r" 180},
-                                "m_teamId"           0,
-                                "m_observe"          0,
-                                "m_result"           1,
-                                "m_hero"             "",
-                                "m_name"             "[Lowko]<sp/>Lowko",
-                                "m_race"             "Zerg",
-                                "m_control"          2,
-                                "m_handicap"         100,
-                                "m_workingSetSlotId" 0,
-                                "m_toon"             {"m_id"        227898,
-                                                      "m_programId" "x00x00S2",
-                                                      "m_realm"     1,
-                                                      "m_region"    2}}
-                               {"m_color"            {"m_a" 255,
-                                                      "m_b" 255,
-                                                      "m_g" 66,
-                                                      "m_r" 0},
-                                "m_teamId"           1,
-                                "m_observe"          0,
-                                "m_result"           2,
-                                "m_hero"             "",
-                                "m_name"             "[ParaSC]<sp/>Gaofushuai",
-                                "m_race"             "Protoss",
-                                "m_control"          2,
-                                "m_handicap"         100,
-                                "m_workingSetSlotId" 1,
-                                "m_toon"             {"m_id"        3207048,
-                                                      "m_programId" "x00x00S2",
-                                                      "m_realm"     1,
-                                                      "m_region"    2}}],
-   "m_thumbnail"              {"m_file" "Minimap.tga"},
-   "m_defaultDifficulty"      3})
+  [{"m_cacheHandles"           ["s2ma"
+                                "s2ma"
+                                "s2max00x00EUft82x12x84Sxefxffxbbx|x80xb7xd3xeexc1xadx81xbdxe5x83xc90xdexa7x9cNPZx04"
+                                "s2maxc5;@"
+                                "s2max00x00EUWxb4xacx0b=xdaxd0Txbaxdfx85xa9LfnWxe4vx9dx08xxcax96rx07x9exc96xb8x0bx98xdc"
+                                "s2max00x00EUx7fAAx1axa5x97xf4xb4d@xd4*V3HxbfSx82-*hx11/x01x04xf9xb8x91xf6xf0Zxe1"
+                                "s2ma"],
+    "m_difficulty"             "",
+    "m_restartAsTransitionMap" false,
+    "m_timeUTC"                130918978219437678,
+    "m_description"            "",
+    "m_mapFileName"            "",
+    "m_imageFilePath"          "",
+    "m_campaignIndex"          0,
+    "m_gameSpeed"              4,
+    "m_modPaths"               nil,
+    "m_timeLocalOffset"        36000000000,
+    "m_isBlizzardMap"          true,
+    "m_title"                  "Ulrena",
+    "m_miniSave"               false,
+    "m_playerList"             [{"m_color"            {"m_a" 255,
+                                                       "m_b" 30,
+                                                       "m_g" 20,
+                                                       "m_r" 180},
+                                 "m_teamId"           0,
+                                 "m_observe"          0,
+                                 "m_result"           1,
+                                 "m_hero"             "",
+                                 "m_name"             "[Lowko]<sp/>Lowko",
+                                 "m_race"             "Zerg",
+                                 "m_control"          2,
+                                 "m_handicap"         100,
+                                 "m_workingSetSlotId" 0,
+                                 "m_toon"             {"m_id"        227898,
+                                                       "m_programId" "x00x00S2",
+                                                       "m_realm"     1,
+                                                       "m_region"    2}}
+                                {"m_color"            {"m_a" 255,
+                                                       "m_b" 255,
+                                                       "m_g" 66,
+                                                       "m_r" 0},
+                                 "m_teamId"           1,
+                                 "m_observe"          0,
+                                 "m_result"           2,
+                                 "m_hero"             "",
+                                 "m_name"             "[ParaSC]<sp/>Gaofushuai",
+                                 "m_race"             "Protoss",
+                                 "m_control"          2,
+                                 "m_handicap"         100,
+                                 "m_workingSetSlotId" 1,
+                                 "m_toon"             {"m_id"        3207048,
+                                                       "m_programId" "x00x00S2",
+                                                       "m_realm"     1,
+                                                       "m_region"    2}}],
+    "m_thumbnail"              {"m_file" "Minimap.tga"},
+    "m_defaultDifficulty"      3}])
 
 (def expected-players-details
   [{"m_race"     "Zerg",
@@ -154,3 +154,27 @@
     "m_name"     "[ParaSC]<sp/>Gaofushuai",
     "m_result"   2,
     "m_playerId" 2}])
+
+(def example-trackerevents
+  ["{'_bits': 304,"
+   " '_event': 'NNet.Replay.Tracker.SUnitBornEvent',"
+   " '_eventid': 1,"
+   " '_gameloop': 10034,"
+   " 'm_controlPlayerId': 1,"
+   " 'm_unitTagIndex': 437,"
+   " 'm_unitTagRecycle': 2,"
+   " 'm_unitTypeName': 'Overlord',"
+   " 'm_upkeepPlayerId': 1,"
+   " 'm_x': 51,"
+   " 'm_y': 29}"
+   "{'_bits': 184,"
+   " '_event': 'NNet.Replay.Tracker.SUnitTypeChangeEvent',"
+   " '_eventid': 4,"
+   " '_gameloop': 10034,"
+   " 'm_unitTagIndex': 89,"
+   " 'm_unitTagRecycle': 2,"
+   " 'm_unitTypeName': 'Larva'}"])
+
+(def example-json-trackerevents
+  [{"_gameloop" 10034, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 29, "_event" "NNet.Replay.Tracker.SUnitBornEvent", "m_unitTypeName" "Overlord", "m_x" 51, "m_unitTagIndex" 437, "_bits" 304, "m_unitTagRecycle" 2, "_eventid" 1}
+   {"_bits" 184, "_event" "NNet.Replay.Tracker.SUnitTypeChangeEvent", "_eventid" 4, "_gameloop" 10034, "m_unitTagIndex" 89, "m_unitTagRecycle" 2, "m_unitTypeName" "Larva"}])

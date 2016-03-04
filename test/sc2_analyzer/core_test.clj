@@ -1,6 +1,7 @@
 (ns sc2-analyzer.core-test
   (:require [clojure.test :refer :all]
             [sc2-analyzer.core :refer :all]
+            [sc2-analyzer.tools :refer :all]
             [sc2-analyzer.sc2-wrapper :refer :all]
             [sc2-analyzer.test-data :refer :all]))
 
@@ -26,4 +27,17 @@
   (testing "player data extraction"
     (let [req expected-players-details
           res (filter-details example-json-details)]
+      (is (= req res)))))
+
+(deftest tracker-events
+  (testing "to json"
+    (let [req example-json-trackerevents
+          res (json-tracker example-trackerevents)]
+      (is (= req res)))))
+
+(deftest conversion
+  (testing "game events to seconds"
+    (let [req {}
+          mid (json-tracker example-trackerevents)
+          res (events-to-seconds mid )]
       (is (= req res)))))
