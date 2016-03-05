@@ -1,23 +1,5 @@
 (ns sc2-analyzer.test-data)
 
-(def test-lines
-  [" {'_bits': 160,"
-   " '_event': 'NNet.Replay.Tracker.SPlayerSetupEvent',"
-   " '_eventid': 9,"
-   " '_gameloop': 0,"
-   " 'm_playerId': 0,"
-   " 'm_slotId': None,"
-   " 'm_type': 3,"
-   " 'm_userId': None}"
-   " {'_bits': 192,"
-   " '_event': 'NNet.Replay.Tracker.SPlayerSetupEvent',"
-   " '_eventid': 9,"
-   " '_gameloop': 0,"
-   " 'm_playerId': 1,"
-   " 'm_slotId': 0,"
-   " 'm_type': 1,"
-   " 'm_userId': 0}"])
-
 (def for-clean
   ["{'m_cacheHandles': ['s2ma\\x00\\x00USm\\xe4\\x15\\x03\\xba\\xcc\\xd0VV6\\x0bo\\x02}\\xb8\\x81i\\xfa\\x19\\x89\\xbbcW\\xb1\\xb2\\x15\\xa2Ty9\\xf5\\xfb',"
    "'s2ma\\x00\\x00USB\\x1c\\x8a\\xa0\\xf3a\\x9be-#\\xa2s]\\xfe\\xe8\\x12\\xabdB(#^zy~\\xde\\xcf\\xe8\\xb6}\\xa3\\x0e',"

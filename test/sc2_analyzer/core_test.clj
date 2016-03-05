@@ -5,7 +5,7 @@
             [sc2-analyzer.sc2-wrapper :refer :all]
             [sc2-analyzer.test-data :refer :all]))
 
-(def objects '("{" "fdsfs" "}" "{}" "{" "}" "{" "{" "}}"))
+(def objects ["{" "fdsfs" "}" "{}" "{" "}" "{" "{" "}}"])
 
 (deftest utf-clean
   (testing "string cleaning"
