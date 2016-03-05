@@ -73,19 +73,22 @@
   [e1 e2]
   (if (contains? e1 (get e2 "m_unitTypeName")) e1 (assoc e1 (get e2 "m_unitTypeName") e2)))
 
+(defn by-gameloop [obj] (obj "_gameloop"))
+
+
 (defn buildings-timing [te-grouped]
-  (let [by-gameloop #(get % "_gameloop")
-        coll (map fill-pid (map (fn [x] (sort-by by-gameloop (second x))) te-grouped))
-        reduced-coll (map (fn [x] (reduce collaps-events {} x)) coll)
-        sorted-coll (sort-by by-gameloop (flatten (map #(vals %) reduced-coll)))
-        processed (map #(select-keys % ["_gameloop" "time" "m_unitTypeName" "m_controlPlayerId" "_event"]) sorted-coll)]
-    (filter-buildings processed)))
+  (->> te-grouped
+       ((fn [te] map fill-pid (map #(sort-by by-gameloop (second %)) te)))
+       (map (fn [x] (reduce collaps-events {} x)))
+       ((fn [rcol] (sort-by by-gameloop (flatten (map #(vals %) rcol)))))
+       (map #(select-keys % ["_gameloop" "time" "m_unitTypeName" "m_controlPlayerId" "_event"]))
+       (filter-buildings)))
 
 
 (defn group-by-tag [te]
   (filter #(not= (first %) [nil nil])
-          (group-by #(let [unit (get % "m_unitTagIndex")
-                           unit_rec (get % "m_unitTagRecycle")]
+          (group-by #(let [unit (% "m_unitTagIndex")
+                           unit_rec (% "m_unitTagRecycle")]
                       [unit unit_rec])
                     te)))
 
@@ -96,7 +99,7 @@
 (defn get-workers
   [te]
   (by-player (map #(select-keys % '("_gameloop" "time" "m_unitTypeName" "m_controlPlayerId"))
-                  (sort-by #(get % "_gameloop")
+                  (sort-by by-gameloop
                            (filter-workers (filter-events te #"SUnitBornEvent"))))))
 
 (def fs (let [fns [
