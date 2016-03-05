@@ -50,6 +50,11 @@
           grouped (group-by-tag mid)
           res (buildings-timing grouped)]
       (is (= req res))))
+  (testing "player grouped"
+    (let [req events-for-players
+          mid (json-tracker building-tracker)
+          res (by-player mid)]
+      (is (= req res))))
   )
 
 

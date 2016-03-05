@@ -94,7 +94,7 @@
 
 (defn by-player
   [te]
-  (group-by #(get % "m_controlPlayerId") te))
+  (dissoc (group-by #(% "m_controlPlayerId") te) nil))
 
 (defn get-workers
   [te]
@@ -122,12 +122,12 @@
                buildings (by-player (buildings-timing (group-by-tag te)))
                workers (get-workers te)]
            (map (fn [x]
-                  (let [id (get x "m_playerId")
-                        race (get x "m_race")
-                        name (get x "m_name")
-                        selected (map #(select-keys % '("m_unitTypeName" "time" "_gameloop" "m_upgradeTypeName"))
-                                      (concat (get workers id) (get buildings id) (get upgrades id)))
-                        build-order (sort-by #(get % "_gameloop") selected)]
+                  (let [id (x "m_playerId")
+                        race (x "m_race")
+                        name (x "m_name")
+                        selected (map #(select-keys % ["m_unitTypeName" "time" "_gameloop" "m_upgradeTypeName"])
+                                      (concat (workers id) (buildings id) (upgrades id)))
+                        build-order (sort-by #(% "_gameloop") selected)]
                     {:name name :race race :order build-order}))
                 det)
            )
