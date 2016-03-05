@@ -166,15 +166,61 @@
    " 'm_unitTypeName': 'Overlord',"
    " 'm_upkeepPlayerId': 1,"
    " 'm_x': 51,"
-   " 'm_y': 29}"
-   "{'_bits': 184,"
-   " '_event': 'NNet.Replay.Tracker.SUnitTypeChangeEvent',"
-   " '_eventid': 4,"
-   " '_gameloop': 10034,"
-   " 'm_unitTagIndex': 89,"
-   " 'm_unitTagRecycle': 2,"
-   " 'm_unitTypeName': 'Larva'}"])
+   " 'm_y': 29}"])
 
 (def example-json-trackerevents
-  [{"_gameloop" 10034, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 29, "_event" "NNet.Replay.Tracker.SUnitBornEvent", "m_unitTypeName" "Overlord", "m_x" 51, "m_unitTagIndex" 437, "_bits" 304, "m_unitTagRecycle" 2, "_eventid" 1}
-   {"_bits" 184, "_event" "NNet.Replay.Tracker.SUnitTypeChangeEvent", "_eventid" 4, "_gameloop" 10034, "m_unitTagIndex" 89, "m_unitTagRecycle" 2, "m_unitTypeName" "Larva"}])
+  [{"_gameloop" 10034, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 29, "_event" "NNet.Replay.Tracker.SUnitBornEvent", "m_unitTypeName" "Overlord", "m_x" 51, "m_unitTagIndex" 437, "_bits" 304, "m_unitTagRecycle" 2, "_eventid" 1}])
+
+(def building-tracker
+  ["{'_bits': 336,"
+   " '_event': 'NNet.Replay.Tracker.SUnitInitEvent',"
+   " '_eventid': 6,"
+   " '_gameloop': 1769,"
+   " 'm_controlPlayerId': 1,"
+   " 'm_unitTagIndex': 238,"
+   " 'm_unitTagRecycle': 1,"
+   " 'm_unitTypeName': 'SpawningPool',"
+   " 'm_upkeepPlayerId': 1,"
+   " 'm_x': 24,"
+   " 'm_y': 20}"
+   "{'_bits': 120,"
+   " '_event': 'NNet.Replay.Tracker.SUnitDoneEvent',"
+   " '_eventid': 7,"
+   " '_gameloop': 1786,"
+   " 'm_unitTagIndex': 232,"
+   " 'm_unitTagRecycle': 1}"
+   "{'_bits': 280,"
+   " '_event': 'NNet.Replay.Tracker.SUnitBornEvent',"
+   " '_eventid': 1,"
+   " '_gameloop': 1799,"
+   " 'm_controlPlayerId': 1,"
+   " 'm_unitTagIndex': 239,"
+   " 'm_unitTagRecycle': 1,"
+   " 'm_unitTypeName': 'Larva',"
+   " 'm_upkeepPlayerId': 1,"
+   " 'm_x': 21,"
+   " 'm_y': 22}"
+   "{'_bits': 280,"
+   " '_event': 'NNet.Replay.Tracker.SUnitBornEvent',"
+   " '_eventid': 1,"
+   " '_gameloop': 1799,"
+   " 'm_controlPlayerId': 1,"
+   " 'm_unitTagIndex': 239,"
+   " 'm_unitTagRecycle': 1,"
+   " 'm_unitTypeName': 'Larva',"
+   " 'm_upkeepPlayerId': 1,"
+   " 'm_x': 21,"
+   " 'm_y': 22}"])
+
+(def expected-buildings
+  [{"_gameloop" 1769, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 20, "_event" "NNet.Replay.Tracker.SUnitInitEvent", "m_unitTypeName" "SpawningPool", "m_x" 24, "m_unitTagIndex" 238, "_bits" 336, "m_unitTagRecycle" 1, "_eventid" 6}])
+
+(def expected-te-groups
+  [[[238 1] [{"_gameloop" 1769, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 20, "_event" "NNet.Replay.Tracker.SUnitInitEvent", "m_unitTypeName" "SpawningPool", "m_x" 24, "m_unitTagIndex" 238, "_bits" 336, "m_unitTagRecycle" 1, "_eventid" 6}]]
+   [[232 1] [{"_bits" 120, "_event" "NNet.Replay.Tracker.SUnitDoneEvent", "_eventid" 7, "_gameloop" 1786, "m_unitTagIndex" 232, "m_unitTagRecycle" 1}]]
+   [[239 1] [{"_gameloop" 1799, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 22, "_event" "NNet.Replay.Tracker.SUnitBornEvent", "m_unitTypeName" "Larva", "m_x" 21, "m_unitTagIndex" 239, "_bits" 280, "m_unitTagRecycle" 1, "_eventid" 1}
+             {"_gameloop" 1799, "m_controlPlayerId" 1, "m_upkeepPlayerId" 1, "m_y" 22, "_event" "NNet.Replay.Tracker.SUnitBornEvent", "m_unitTypeName" "Larva", "m_x" 21, "m_unitTagIndex" 239, "_bits" 280, "m_unitTagRecycle" 1, "_eventid" 1}]]
+   ])
+
+(def expected-building-timing
+  [{"_gameloop" 1769, "m_unitTypeName" "SpawningPool", "m_controlPlayerId" 1, "_event" "NNet.Replay.Tracker.SUnitInitEvent"}])

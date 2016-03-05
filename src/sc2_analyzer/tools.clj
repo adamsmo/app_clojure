@@ -64,27 +64,40 @@
                        (string/upper-case name)))
           te))
 
+(defn fill-pid
+  [x]
+  (let [player-id (reduce #(if (get %2 "m_controlPlayerId") (get %2 "m_controlPlayerId") %1) nil x)]
+    (map #(assoc % "m_controlPlayerId" player-id) x)))
+
+(defn collaps-events
+  [e1 e2]
+  (if (contains? e1 (get e2 "m_unitTypeName")) e1 (assoc e1 (get e2 "m_unitTypeName") e2)))
+
 (defn buildings-timing [te-grouped]
   (let [by-gameloop #(get % "_gameloop")
-        fill-pid (fn [x]
-                   (let [player-id (reduce #(if (get %2 "m_controlPlayerId") (get %2 "m_controlPlayerId") %1) nil x)]
-                     (map #(assoc % "m_controlPlayerId" player-id) x)))
         coll (map fill-pid (map (fn [x] (sort-by by-gameloop (second x))) te-grouped))
-        collaps-events #(if (contains? %1 (get %2 "m_unitTypeName")) %1 (assoc %1 (get %2 "m_unitTypeName") %2))
         reduced-coll (map (fn [x] (reduce collaps-events {} x)) coll)
         sorted-coll (sort-by by-gameloop (flatten (map #(vals %) reduced-coll)))
-        processed (map #(select-keys % '("_gameloop" "time" "m_unitTypeName" "m_controlPlayerId" "_event")) sorted-coll)]
+        processed (map #(select-keys % ["_gameloop" "time" "m_unitTypeName" "m_controlPlayerId" "_event"]) sorted-coll)]
     (filter-buildings processed)))
 
 
 (defn group-by-tag [te]
-  (filter #(not= (first %) '(nil nil))
-          (group-by #(list (get % "m_unitTagIndex") (get % "m_unitTagRecycle"))
+  (filter #(not= (first %) [nil nil])
+          (group-by #(let [unit (get % "m_unitTagIndex")
+                           unit_rec (get % "m_unitTagRecycle")]
+                      [unit unit_rec])
                     te)))
 
 (defn by-player
   [te]
   (group-by #(get % "m_controlPlayerId") te))
+
+(defn get-workers
+  [te]
+  (by-player (map #(select-keys % '("_gameloop" "time" "m_unitTypeName" "m_controlPlayerId"))
+                  (sort-by #(get % "_gameloop")
+                           (filter-workers (filter-events te #"SUnitBornEvent"))))))
 
 (def fs (let [fns [
                    "ZvP - Dominated.SC2Replay"
@@ -104,9 +117,7 @@
                det (process-SC2-players-data f)
                upgrades (group-by #(get % "m_playerId") (players-upgrades te))
                buildings (by-player (buildings-timing (group-by-tag te)))
-               workers (by-player (map #(select-keys % '("_gameloop" "time" "m_unitTypeName" "m_controlPlayerId"))
-                                       (sort-by #(get % "_gameloop")
-                                                (filter-workers (filter-events te #"SUnitBornEvent")))))]
+               workers (get-workers te)]
            (map (fn [x]
                   (let [id (get x "m_playerId")
                         race (get x "m_race")

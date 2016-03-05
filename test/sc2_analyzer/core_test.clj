@@ -33,11 +33,29 @@
   (testing "to json"
     (let [req example-json-trackerevents
           res (json-tracker example-trackerevents)]
-      (is (= req res)))))
+      (is (= req res))))
+  (testing "filter buildings"
+    (let [req expected-buildings
+          mid (json-tracker building-tracker)
+          res (filter-buildings mid)]
+      (is (= req res))))
+  (testing "event grouping"
+    (let [req expected-te-groups
+          mid (json-tracker building-tracker)
+          res (group-by-tag mid)]
+      (is (= req res))))
+  (testing "building order"
+    (let [req expected-building-timing
+          mid (json-tracker building-tracker)
+          grouped (group-by-tag mid)
+          res (buildings-timing grouped)]
+      (is (= req res))))
+  )
+
 
 (deftest conversion
   (testing "game events to seconds"
-    (let [req {}
+    (let [req [{:minutes 10, :seconds 27}]
           mid (json-tracker example-trackerevents)
-          res (events-to-seconds mid )]
+          res (map #(% "time") (events-to-seconds mid))]
       (is (= req res)))))
