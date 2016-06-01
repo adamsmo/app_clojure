@@ -46,13 +46,13 @@
 
 (defn filter-details [json]
   (map-indexed (fn [idx obj] (assoc (select-keys obj ["m_race" "m_name" "m_result"]) "m_playerId" (+ 1 idx)))
-               ((first json) "m_playerList")))
+               (json "m_playerList")))
 
 (defn to-json [fileLines]
   (->> fileLines (map strip-special) separate-objects (map string/join) (map fix-json) (map json/read-str)))
 
 
-(defn json-details [fileLines] (flatten (map filter-details (to-json fileLines))))
+(defn json-details [fileLines] (filter-details (first (to-json fileLines))))
 
 (defn json-tracker [fileLines] (to-json fileLines))
 

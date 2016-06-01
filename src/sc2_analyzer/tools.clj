@@ -4,13 +4,17 @@
   (:require [sc2-analyzer.sc2-cons :refer :all])
   (:require [clojure.java.shell :as shell]))
 
+;(require '[clojure.string :as string])
+;(require '[sc2-analyzer.sc2-wrapper :refer :all])
+;(require '[sc2-analyzer.sc2-cons :refer :all])
+;(require '[clojure.java.shell :as shell])
 
 (defn extract-tracker-events [filename]
-  (string/split (:out (shell/sh "python" "/Users/adam/Desktop/scalac/s2protocol/s2protocol.py"
+  (string/split (:out (shell/sh "python" "/Users/adam/Desktop/s2protocol/s2protocol.py"
                                 "--trackerevents" filename)) #"\n"))
 
 (defn extract-initdata [filename]
-  (string/split (:out (shell/sh "python" "/Users/adam/Desktop/scalac/s2protocol/s2protocol.py"
+  (string/split (:out (shell/sh "python" "/Users/adam/Desktop/s2protocol/s2protocol.py"
                                 "--details" filename)) #"\n"))
 
 (defn process-SC2-players-data [filename]
@@ -20,9 +24,9 @@
   (json-tracker (extract-tracker-events filename)))
 
 (defn convert-to-ms
-  "there is 16 gameloops in 1 in game second -> http://us.battle.net/sc2/en/forum/topic/7004015250#2"
+  "there is 16 gameloops in 1 and faster game mode counts 1.425 seconds - synced with lotv.spawningtool.com, possible to be 1s off"
   [gameLoop]
-  (let [totalseconds (/ gameLoop 16.0)]
+  (let [totalseconds (/ gameLoop (* 1.425 16.0) )]
     {:minutes (int (/ totalseconds 60.0)) :seconds (mod (int totalseconds) 60)}))
 
 (defn players-upgrades
@@ -39,8 +43,6 @@
 
 
 ;(require '[sc2-analyzer.tools :as sc])
-
-(def directory "november_sc2/")
 
 
 (defn pre-process-units [coll]
@@ -102,19 +104,20 @@
                   (sort-by by-gameloop
                            (filter-workers (filter-events te #"SUnitBornEvent"))))))
 
+;"replays/Dayshi v Nerchio- Game 5 - Ulrena.SC2Replay"
+
+(def directory "replays/")
+
 (def fs (let [fns [
-                   "ZvP - Dominated.SC2Replay"
-                   ;"ZvP - Double golde expo.SC2Replay"
-                   ;"ZvT -Resilient terran.SC2Replay"
-                   ;"ZvP - Muta spine.SC2Replay"
-                   ;"ZvZ - logn zvz .SC2Replay"
-                   ;"PvP - No idea what Im doing.SC2Replay"
-                   ;"PvP - Protossing a Protoss with Protoss units because Prootss (blink stalker).SC2Replay"
+                   "Dayshi v Nerchio- Game 5 - Ulrena.SC2Replay"
+                   ;"Lilbow v MarineLorD- Game 2 - Ulrena.SC2Replay"
                    ]]
           (map (fn [e] (str directory e)) fns)))
 
-; function for quick run in repl
-(def test-process
+; mresult -> first is winner
+
+(defn test-process
+  []
   (map (fn [f]
          (let [te (events-to-seconds (process-SC2-events f))
                det (process-SC2-players-data f)
@@ -125,11 +128,11 @@
                   (let [id (x "m_playerId")
                         race (x "m_race")
                         name (x "m_name")
+                        win (= (x "m_result") 1)
                         selected (map #(select-keys % ["m_unitTypeName" "time" "_gameloop" "m_upgradeTypeName"])
                                       (concat (workers id) (buildings id) (upgrades id)))
                         build-order (sort-by #(% "_gameloop") selected)]
-                    {:name name :race race :order build-order}))
+                    {:name name :winner win :race race :order build-order}))
                 det)
            )
          ) fs))
-
